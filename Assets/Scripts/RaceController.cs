@@ -45,11 +45,12 @@ public class RaceController : MonoBehaviour
     {
         UI_Controller.instance.countdownText.gameObject.SetActive(true);
 
-/*         for (int i = 10; i >= 0; i--)  // countdown
+        for (int i = 10; i >= 0; i--)  // countdown
         {
             yield return new WaitForSeconds(1f);
             UI_Controller.instance.ChangeCountdownText(i.ToString()); 
-        } */
+        }
+        
         yield return new WaitForSeconds(1f);
         UI_Controller.instance.countdownText.gameObject.SetActive(false);
         gate.SetActive(false);

@@ -6,6 +6,7 @@ public class HorseBehavior : MonoBehaviour
     public Horse.HorseData horseData;
     public SpriteRenderer spriteRenderer;
     public Rigidbody2D rb;
+    public AudioSource clop;
 
     public float acceleration;
     public float maxVelocity;
@@ -19,6 +20,8 @@ public class HorseBehavior : MonoBehaviour
         // get components
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        clop = GetComponentInChildren<AudioSource>();
+        clop.volume = 0.3f;
 
         // initialize horse
         horseData = horse.horseData;
@@ -30,6 +33,8 @@ public class HorseBehavior : MonoBehaviour
         acceleration = horseData.speed * 0.2f;
         maxVelocity = 10f;
         velocity = 0f;
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         // set initial direction for horse to move in
         float initialDirection = Mathf.Deg2Rad * Random.Range(0, 360);
@@ -52,26 +57,17 @@ public class HorseBehavior : MonoBehaviour
         }
     }
 
-/*  Failsafe for huddling horses   
-
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        float initialDirection = Mathf.Deg2Rad * Random.Range(0, 360);
-        direction = new Vector2((float)Mathf.Cos(initialDirection), (float)Mathf.Sin(initialDirection)).normalized;
-        rb.AddForce(direction.normalized * 1);
-    } 
-*/    
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Cheese"))
         {
             Destroy(collision.gameObject);
-            RaceController.instance.EndRace(horse);
+            StartCoroutine(RaceController.instance.EndRace(horse));
         }
 
         else if (collision.gameObject.CompareTag("Horse"))  // horse collision
         {
+            clop.Play();
             HorseBehavior collidedHorse = collision.gameObject.GetComponent<HorseBehavior>();
     
             // take power difference into account
@@ -84,6 +80,7 @@ public class HorseBehavior : MonoBehaviour
 
         else  // wall collision
         {
+            clop.Play();
             velocity /= Mathf.Max(1, 9 - horseData.stamina);
             direction = (-direction + new Vector2(Random.Range(-1f, 1f),Random.Range(-1f, 1f))).normalized;
         }

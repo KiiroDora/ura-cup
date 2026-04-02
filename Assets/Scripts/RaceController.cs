@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RaceController : MonoBehaviour
@@ -13,6 +12,12 @@ public class RaceController : MonoBehaviour
 
     private float time;
     public static TimeSpan raceTime;
+
+    public AudioSource neigh;
+    public AudioSource bgm;
+    public AudioSource winBGM;
+    public AudioSource announcer;
+    public AudioClip[] announcerLines;
 
     Camera mainCamera;
 
@@ -45,20 +50,38 @@ public class RaceController : MonoBehaviour
     {
         UI_Controller.instance.countdownText.gameObject.SetActive(true);
 
+        announcer.clip = announcerLines[11];
+        announcer.Play();
+
         for (int i = 10; i >= 0; i--)  // countdown
         {
             yield return new WaitForSeconds(1f);
+            announcer.clip = announcerLines[i];
+            announcer.Play();
             UI_Controller.instance.ChangeCountdownText(i.ToString()); 
         }
-        
+
+        announcer.clip = announcerLines[0];
+        announcer.Play();
+        UI_Controller.instance.ChangeCountdownText("GO"); 
         yield return new WaitForSeconds(1f);
         UI_Controller.instance.countdownText.gameObject.SetActive(false);
         gate.SetActive(false);
         raceInProcess = true;
+        bgm.Play();
     }
 
-    public void EndRace(Horse horse)
+    public IEnumerator EndRace(Horse horse)
     {
+        GameObject[] horses = GameObject.FindGameObjectsWithTag("Horse");
+        foreach (GameObject h in horses)
+        {
+            h.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        bgm.Stop();
+        neigh.Play();
+        yield return new WaitForSeconds(2f);
+        winBGM.Play();
         raceInProcess = false;
         UI_Controller.instance.SetWinnerPanel(horse.horseData.name, horse.sprite);
     }

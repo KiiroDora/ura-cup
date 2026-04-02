@@ -33,6 +33,7 @@ public class UI_Controller : MonoBehaviour
     {
         winPanel.SetActive(true);
         winnerImage.sprite = sprite;
+        winnerImage.GetComponent<Animator>().Play("win");
         winnerText.text = "WINNER: \n" + winner;
     }
 }

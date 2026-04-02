@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7963177cdddb2ac48885faf2fd0420a8, type: 3}
+  m_Name: MEW
+  m_EditorClassIdentifier: Assembly-CSharp::Horse
+  sprite: {fileID: 21300000, guid: 26d6e2d6eacd2eb4289bfe0f3560b866, type: 3}
+  horseData:
+    name: MEW MEW MADS
+    speed: 3
+    stamina: 2
+    power: 4

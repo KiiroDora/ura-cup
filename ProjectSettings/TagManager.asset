@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Horse
   - Cheese
+  - Gate
   layers:
   - Default
   - TransparentFX

@@ -67,6 +67,10 @@ public class RaceController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         UI_Controller.instance.countdownText.gameObject.SetActive(false);
         gate.SetActive(false);
+        foreach (GameObject gate in GameObject.FindGameObjectsWithTag("Gate"))  // for multiple gates. don't forget to set tags for each
+        {
+            gate.SetActive(false);
+        }
         raceInProcess = true;
         bgm.Play();
     }

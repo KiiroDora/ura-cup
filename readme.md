@@ -45,4 +45,4 @@ If you aren't planning on adding new horses or racetracks:
 e-mail me at kiirodoradora@gmail.com and if I have the time I'll try and see if I can fix it or help you fix it!
 
 --- I WANT TO IMPROVE THIS THING WITH MY OWN CODE. ---
-Go ahead! The project is open source. However keep in mind if you somehow use this for like. Actual Real Life Gambling or something I am not liable for anything. This is meant to be strictly for fun.
+Go ahead! You can fork the project and do your thing. However keep in mind if you somehow use this for like. Actual Real Life Gambling or something I am not liable for anything. This is meant to be strictly for fun.
